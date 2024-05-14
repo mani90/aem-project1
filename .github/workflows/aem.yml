@@ -34,7 +34,7 @@ jobs:
         with: 
           repository: mani90/aem-monorepo
           path: main
-          token: ${{secrets.TOKEN}}
+          token: ${{github.TOKEN}}
       # Cleanup sub project
       - name: Clean project
         run: |
