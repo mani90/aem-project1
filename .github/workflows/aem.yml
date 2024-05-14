@@ -13,6 +13,7 @@ env:
   MAIN_REPOSITORY: https://$MAIN_USER:$GH_TOKEN@github.com/mani90/aem-monorepo.git
   # The branch in Cloud Manager's Git repository to push to
   MAIN_BRANCH : main
+  PAT: ${{secrets.GH_PAT}}
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
@@ -59,7 +60,7 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{secrets.GH_PAT }}
+          github_token: ${{env.PAT}}
           branch: ${{ github.ref }}
           repository: mani90/aem-monorepo
           force: true
