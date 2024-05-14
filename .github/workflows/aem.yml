@@ -62,6 +62,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
+          repository: mani90/aem-monorepo
+          force: true
       - name: Commit Changes
         run: |
           git -C ${MAIN_BRANCH} add -f ${PROJECT_DIR}
