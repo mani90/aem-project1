@@ -48,10 +48,6 @@ jobs:
           git config --global credential.helper cache
           git config --global user.email ${USER_EMAIL}
           git config --global user.name ${USER_NAME}
-      # Checkout the main project
-      # - name: Checkout main project
-      #   run:
-      #     git clone -b ${MAIN_BRANCH} ${MAIN_REPOSITORY} ${MAIN_BRANCH}
       # Move sub project
       - name: Move project to main project
         run: |
@@ -62,6 +58,6 @@ jobs:
           cd ${MAIN_BRANCH}
           git -C ${MAIN_BRANCH} add -f ${PROJECT_DIR}
           git -C ${MAIN_BRANCH} commit -F ../commit.txt
-          git -C ${MAIN_BRANCH} push
+          git -C ${MAIN_BRANCH} push https://$USER_NAME:$token@github.com:mani90/aem-monorepo
         env:
           token: ${{github.token}}
