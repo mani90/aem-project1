@@ -57,6 +57,10 @@ jobs:
         run: |
           rm -rf ${MAIN_BRANCH}/${PROJECT_DIR}
           mv sub ${MAIN_BRANCH}/${PROJECT_DIR}
+      - name: Commit Changes
+        run: |
+          git -C ${MAIN_BRANCH} add -f ${PROJECT_DIR}
+          git -C ${MAIN_BRANCH} commit -F ../commit.txt
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
@@ -65,10 +69,4 @@ jobs:
           repository: mani90/aem-monorepo
           force: true
           directory: main
-      - name: Commit Changes
-        run: |
-          git -C ${MAIN_BRANCH} add -f ${PROJECT_DIR}
-          git -C ${MAIN_BRANCH} commit -F ../commit.txt
-          git -C ${MAIN_BRANCH} push
-        env:
-          token: ${{github.token}}
+
