@@ -60,8 +60,8 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{github.token}}
-          branch: ${{ github.ref }}
+          github_token: ${{github.TOKEN}}
+          branch: main
           repository: mani90/aem-monorepo
           force: true
           directory: main
