@@ -15,23 +15,6 @@ env:
   MAIN_BRANCH : main
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
-# or API.# This is a basic workflow that is manually triggered
-
-name: Manual workflow
-
-env:
-  # Username/email used to commit to Cloud Manager's Git repository
-  USER_NAME: mani90
-  USER_EMAIL: mani12316@gmail.com
-  GH_TOKEN: ${{ github.token }}
-  # Directory within the Cloud Manager Git repository
-  PROJECT_DIR: project-a
-  # Cloud Manager's Git repository
-  MAIN_REPOSITORY: https://$MAIN_USER:$GH_TOKEN@github.com/mani90/aem-monorepo.git
-  # The branch in Cloud Manager's Git repository to push to
-  MAIN_BRANCH : main
-
-# Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
 on:
    push:
@@ -51,57 +34,7 @@ jobs:
         with: 
           repository: mani90/aem-monorepo
           path: main
-          token: ${{github.token}}
-          ref: main
-      # Cleanup sub project
-      - name: Clean project
-        run: |
-          git -C sub log --format="%an : %s" -n 1 > commit.txt
-          rm -rf sub/.git
-          rm -rf sub/.github
-      # Set global git configuration
-      - name: Set git config
-        run: |
-          git config --global credential.helper cache
-          git config --global user.email ${USER_EMAIL}
-          git config --global user.name ${USER_NAME}
-      # Checkout the main project
-      # - name: Checkout main project
-      #   run:
-      #     git clone -b ${MAIN_BRANCH} ${MAIN_REPOSITORY} ${MAIN_BRANCH}
-      # Move sub project
-      - name: Move project to main project
-        run: |
-          rm -rf ${MAIN_BRANCH}/${PROJECT_DIR}
-          mv sub ${MAIN_BRANCH}/${PROJECT_DIR}
-      - name: Commit Changes
-        run: |
-          cd ${MAIN_BRANCH}
-          git -C ${MAIN_BRANCH} add -f ${PROJECT_DIR}
-          git -C ${MAIN_BRANCH} commit -F ../commit.txt
-          git -C ${MAIN_BRANCH} push
-        env:
-          token: ${{github.token}}
-
-on:
-   push:
-     branches: [ main ]
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      # Checkout this project into a sub folder
-      - uses: actions/checkout@v2
-        with:
-          path: sub
-      - uses: actions/checkout@v2
-        with: 
-          repository: mani90/aem-monorepo
-          path: main
-          token: ${{github.token}}
+          token: ${{secrets.token}}
 
       # Cleanup sub project
       - name: Clean project
