@@ -55,7 +55,6 @@ jobs:
           mv sub ${MAIN_BRANCH}/${PROJECT_DIR}
       - name: Commit Changes
         run: |
-          cd ${MAIN_BRANCH}
           git -C ${MAIN_BRANCH} add -f ${PROJECT_DIR}
           git -C ${MAIN_BRANCH} commit -F ../commit.txt
           git -C ${MAIN_BRANCH} push https://$USER_NAME:$token@github.com:mani90/aem-monorepo
