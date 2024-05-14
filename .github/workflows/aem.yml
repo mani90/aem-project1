@@ -6,15 +6,13 @@ env:
   # Username/email used to commit to Cloud Manager's Git repository
   USER_NAME: mani90
   USER_EMAIL: mani12316@gmail.com
-  MAIN_PASSWORD: Manik90-am
+  GH_TOKEN: ${{ github.token }}
   # Directory within the Cloud Manager Git repository
   PROJECT_DIR: project-a
   # Cloud Manager's Git repository
-  MAIN_REPOSITORY: git@github.com:mani90/aem-monorepo.git
+  MAIN_REPOSITORY: https://https://$MAIN_USER:$GH_TOKEN@github.com/mani90/aem-monorepo.git
   # The branch in Cloud Manager's Git repository to push to
   MAIN_BRANCH : main
-  
-  GH_TOKEN: ${{ github.token }}
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
@@ -32,6 +30,11 @@ jobs:
       - uses: actions/checkout@v2
         with:
           path: sub
+      - uses: actions/checkout@v2
+        with: 
+          repository: mani90/aem-monorepo
+          path: ${MAIN_BRANCH}
+          token: ${{github.token}}
       # Cleanup sub project
       - name: Clean project
         run: |
@@ -45,9 +48,9 @@ jobs:
           git config --global user.email ${USER_EMAIL}
           git config --global user.name ${USER_NAME}
       # Checkout the main project
-      - name: Checkout main project
-        run:
-          gh repo clone mani90/aem-project1 ${MAIN_BRANCH}
+      # - name: Checkout main project
+      #   run:
+      #     git clone -b ${MAIN_BRANCH} ${MAIN_REPOSITORY} ${MAIN_BRANCH}
       # Move sub project
       - name: Move project to main project
         run: |
@@ -58,3 +61,5 @@ jobs:
           git -C ${MAIN_BRANCH} add -f ${PROJECT_DIR}
           git -C ${MAIN_BRANCH} commit -F ../commit.txt
           git -C ${MAIN_BRANCH} push
+        env:
+          token: ${{github.token}}
