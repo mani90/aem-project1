@@ -1,19 +1,18 @@
 # This is a basic workflow that is manually triggered
 
-name: Manual workflow
+name: Main Branch push
 
 env:
   # Username/email used to commit to Cloud Manager's Git repository
-  USER_NAME: mani90
-  USER_EMAIL: mani12316@gmail.com
+  USER_NAME: <user>
+  USER_EMAIL: <email
   GH_TOKEN: ${{ github.token }}
   # Directory within the Cloud Manager Git repository
   PROJECT_DIR: project-a
   # Cloud Manager's Git repository
-  MAIN_REPOSITORY: https://$MAIN_USER:$GH_TOKEN@github.com/mani90/aem-monorepo.git
+  MAIN_REPOSITORY: mani90/aem-monorepo
   # The branch in Cloud Manager's Git repository to push to
   MAIN_BRANCH : main
-  PAT: ${{secrets.GH_PAT}}
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
@@ -36,10 +35,10 @@ jobs:
           path: sub
       - uses: actions/checkout@v2
         with: 
-          repository: mani90/aem-monorepo
-          path: main
+          repository: ${{env.MAIN_REPOSITORY}}
+          path: ${{env.MAIN_BRANCH}}
           token: ${{secrets.GH_PAT}}
-          ref: main
+          ref: ${{env.MAIN_BRANCH}}
       # Cleanup sub project
       - name: Clean project
         run: |
@@ -65,8 +64,8 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{secrets.GH_PAT}}
-          branch: main
-          repository: mani90/aem-monorepo
+          branch: ${{env.MAIN_BRANCH}}
+          repository: ${{env.MAIN_REPOSITORY}}
           force: true
-          directory: main
+          directory: ${{env.MAIN_BRANCH}}
 
