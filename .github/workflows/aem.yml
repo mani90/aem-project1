@@ -6,7 +6,7 @@ env:
   # Username/email used to commit to Cloud Manager's Git repository
   USER_NAME: mani90
   USER_EMAIL: mani12316@gmail.com
-  GH_TOKEN: ${{ github.token }}
+  GH_TOKEN: ${{ secrets.token }}
   # Directory within the Cloud Manager Git repository
   PROJECT_DIR: project-a
   # Cloud Manager's Git repository
@@ -34,7 +34,7 @@ jobs:
         with: 
           repository: mani90/aem-monorepo
           path: main
-          token: ${{github.token}}
+          token: ${{secrets.token}}
 
       # Cleanup sub project
       - name: Clean project
