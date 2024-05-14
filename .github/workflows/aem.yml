@@ -38,7 +38,7 @@ jobs:
         with: 
           repository: mani90/aem-monorepo
           path: main
-          token: ${{github.TOKEN}}
+          token: ${{secrets.GH_PAT}}
           ref: main
       # Cleanup sub project
       - name: Clean project
@@ -60,7 +60,7 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{github.TOKEN}}
+          github_token: ${{secrets.GH_PAT}}
           branch: main
           repository: mani90/aem-monorepo
           force: true
