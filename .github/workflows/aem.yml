@@ -9,7 +9,7 @@ env:
   # Directory within the Cloud Manager Git repository
   PROJECT_DIR: project-a
   # Cloud Manager's Git repository
-  MAIN_REPOSITORY: mani90/aem-monorepo.git
+  MAIN_REPOSITORY: https://github.com/mani90/aem-monorepo
   # The branch in Cloud Manager's Git repository to push to
   MAIN_BRANCH : main
 
