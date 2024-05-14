@@ -19,6 +19,8 @@ env:
 on:
    push:
      branches: [ main ]
+permissions:
+   contents: write  # To push a branch
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -46,8 +48,8 @@ jobs:
       - name: Set git config
         run: |
           git config --global credential.helper cache
-          git config --global user.email ${USER_EMAIL}
-          git config --global user.name ${USER_NAME}
+          git config --global user.email github-actions[bot]@users.noreply.github.com
+          git config --global user.name github-actions[bot]
       # Move sub project
       - name: Move project to main project
         run: |
