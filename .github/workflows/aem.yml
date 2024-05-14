@@ -47,7 +47,7 @@ jobs:
       # Checkout the main project
       - name: Checkout main project
         run:
-          gh repo clone ${MAIN_BRANCH} mani90/aem-monorepo ${MAIN_BRANCH}
+          gh repo clone mani90/aem-project1 ${MAIN_BRANCH}
       # Move sub project
       - name: Move project to main project
         run: |
