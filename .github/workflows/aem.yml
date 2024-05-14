@@ -21,6 +21,7 @@ on:
      branches: [ main ]
 permissions:
    contents: write  # To push a branch
+   pull-requests: write 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -55,6 +56,11 @@ jobs:
         run: |
           rm -rf ${MAIN_BRANCH}/${PROJECT_DIR}
           mv sub ${MAIN_BRANCH}/${PROJECT_DIR}
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
       - name: Commit Changes
         run: |
           git -C ${MAIN_BRANCH} add -f ${PROJECT_DIR}
