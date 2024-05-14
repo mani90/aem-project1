@@ -56,6 +56,7 @@ jobs:
         run: |
           rm -rf ${MAIN_BRANCH}/${PROJECT_DIR}
           mv sub ${MAIN_BRANCH}/${PROJECT_DIR}
+          cd main
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
